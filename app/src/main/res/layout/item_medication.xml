@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/medication_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/medication_name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/milligrams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/milligrams"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/dosage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dosage"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/frequency"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_date"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/end_date"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/refill_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refill_date"
+        android:paddingTop="4dp" />
+
+    <TextView
+        android:id="@+id/instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instructions"
+        android:paddingTop="4dp" />
+
+</LinearLayout>

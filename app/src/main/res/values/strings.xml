@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">MedConnect</string>
+    <string name="medications_title">Medications</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="dosage">Dose-Form</string>
+    <string name="frequency">Frequency</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="refill_date">Refill Date</string>
+    <string name="instructions">Instructions</string>
+    <string name="medication_reminders_title">Medication Reminders</string>
+    <string name="time_of_day">Time of Day</string>
+    <string name="next_reminder_time">Next Reminder Time</string>
+    <string name="snooze">Snooze</string>
+    <string name="search_title">Search Medications</string>
+    <string name="search_hint">Enter medication name</string>
+    <string name="search_button">Search</string>
+    <string name="milligrams">Milligrams</string>
+    <string name="price">Price</string>
+    <string name="pharmacy_name">Pharmacy Name</string>
+    <string name="pharmacy_phone_number">Pharmacy Phone Number</string>
+    <string name="pharmacy_address">Pharmacy Address</string>
+    <string name="town">Town</string>
+
+<!--    <string-array name="regions_array">-->
+<!--        <item>Nairobi</item>-->
+<!--        <item>Mombasa</item>-->
+<!--        <item>Kisumu</item>-->
+<!--        <item>Eldoret</item>-->
+<!--        <item>Nakuru</item>-->
+<!--    </string-array>-->
+
+    <string-array name="sort_options_array">
+        <item>Price</item>
+    </string-array>
+
+    <string-array name="frequency_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="instructions_array">
+        <item>Before Meal</item>
+        <item>After Meal</item>
+        <item>With Food</item>
+        <item>Without Food</item>
+        <item>Before Bed</item>
+    </string-array>
+</resources>

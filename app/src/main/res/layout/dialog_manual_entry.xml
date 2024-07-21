@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_medication_name"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:hint="Medication Name" />
+
+    <EditText
+        android:id="@+id/et_dosage"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="Dose-Form" />
+
+    <EditText
+        android:id="@+id/et_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="Start Date (YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/et_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="End Date (YYYY-MM-DD)" />
+
+    <EditText
+        android:id="@+id/et_refill_date"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="Refill Date (YYYY-MM-DD)" />
+
+    <Spinner
+        android:id="@+id/spinner_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:entries="@array/frequency_array" />
+
+    <Spinner
+        android:id="@+id/spinner_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:entries="@array/instructions_array" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:text="Save" />
+</LinearLayout>

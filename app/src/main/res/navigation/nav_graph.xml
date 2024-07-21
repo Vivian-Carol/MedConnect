@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="org.me.gcu.medconnect.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_medications"
+        android:name="org.me.gcu.medconnect.fragments.MedicationsFragment"
+        android:label="Medications"
+        tools:layout="@layout/fragment_medications" />
+
+    <fragment
+        android:id="@+id/nav_reminders"
+        android:name="org.me.gcu.medconnect.fragments.MedicationRemindersFragment"
+        android:label="Reminders"
+        tools:layout="@layout/fragment_medication_reminders" />
+
+    <fragment
+        android:id="@+id/nav_prescriptions"
+        android:name="org.me.gcu.medconnect.fragments.PrescriptionsFragment"
+        android:label="Prescriptions"
+        tools:layout="@layout/fragment_prescriptions" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="org.me.gcu.medconnect.fragments.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/nav_manual_entry"
+        android:name="org.me.gcu.medconnect.fragments.ManualEntryDialog"
+        android:label="Manual Entry"
+        tools:layout="@layout/dialog_manual_entry" />
+</navigation>
