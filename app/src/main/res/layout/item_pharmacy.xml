@@ -1,58 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="?attr/selectableItemBackground">
-
-    <TextView
-        android:id="@+id/medication_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/medication_name"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/milligrams"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/milligrams"
-        android:paddingTop="4dp" />
-
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/price"
-        android:paddingTop="4dp" />
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/pharmacy_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pharmacy_name"
-        android:paddingTop="4dp" />
-
-    <TextView
-        android:id="@+id/pharmacy_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pharmacy_phone_number"
-        android:paddingTop="4dp" />
+        android:text="Pharmacy Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/pharmacy_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pharmacy_address"
-        android:paddingTop="4dp" />
+        android:layout_below="@id/pharmacy_name"
+        android:text="Pharmacy Address" />
+
+    <TextView
+        android:id="@+id/pharmacy_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pharmacy_address"
+        android:text="Phone Number" />
 
     <TextView
         android:id="@+id/town"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/town"
-        android:paddingTop="4dp" />
-</LinearLayout>
+        android:layout_below="@id/pharmacy_phone_number"
+        android:text="Town" />
+
+    <TextView
+        android:id="@+id/medication_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/town"
+        android:text="Medication Name" />
+
+    <TextView
+        android:id="@+id/milligrams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medication_name"
+        android:text="Milligrams" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/milligrams"
+        android:text="Price" />
+</RelativeLayout>

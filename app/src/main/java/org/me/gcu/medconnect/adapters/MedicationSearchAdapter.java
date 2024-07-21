@@ -1,67 +1,6 @@
-//package org.me.gcu.medconnect.adapters;
-//
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.TextView;
-//
-//import androidx.annotation.NonNull;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import org.me.gcu.medconnect.R;
-//import org.me.gcu.medconnect.models.Pharmacy;
-//
-//import java.util.List;
-//
-//public class MedicationSearchAdapter extends RecyclerView.Adapter<MedicationSearchAdapter.ViewHolder> {
-//
-//    private List<Pharmacy> pharmacies;
-//
-//    public MedicationSearchAdapter(List<Pharmacy> pharmacies) {
-//        this.pharmacies = pharmacies;
-//    }
-//
-//    public void updateData(List<Pharmacy> newPharmacies) {
-//        this.pharmacies = newPharmacies;
-//        notifyDataSetChanged();
-//    }
-//
-//    @NonNull
-//    @Override
-//    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pharmacy, parent, false);
-//        return new ViewHolder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Pharmacy pharmacy = pharmacies.get(position);
-//        holder.pharmacyName.setText(pharmacy.getPharmacyName());
-//        holder.pharmacyAddress.setText(pharmacy.getPharmacyAddress());
-//        // Add more fields as needed
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return pharmacies.size();
-//    }
-//
-//    static class ViewHolder extends RecyclerView.ViewHolder {
-//        TextView pharmacyName;
-//        TextView pharmacyAddress;
-//        // Add more views as needed
-//
-//        ViewHolder(View itemView) {
-//            super(itemView);
-//            pharmacyName = itemView.findViewById(R.id.pharmacy_name);
-//            pharmacyAddress = itemView.findViewById(R.id.pharmacy_address);
-//            // Initialize more views as needed
-//        }
-//    }
-//}
-
 package org.me.gcu.medconnect.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,13 +18,16 @@ import java.util.List;
 public class MedicationSearchAdapter extends RecyclerView.Adapter<MedicationSearchAdapter.ViewHolder> {
 
     private List<Pharmacy> pharmacies;
+    private String searchQuery;
 
-    public MedicationSearchAdapter(List<Pharmacy> pharmacies) {
+    public MedicationSearchAdapter(List<Pharmacy> pharmacies, String searchQuery) {
         this.pharmacies = pharmacies;
+        this.searchQuery = searchQuery;
     }
 
-    public void updateData(List<Pharmacy> newPharmacies) {
+    public void updateData(List<Pharmacy> newPharmacies, String newSearchQuery) {
         this.pharmacies = newPharmacies;
+        this.searchQuery = newSearchQuery;
         notifyDataSetChanged();
     }
 
@@ -99,17 +41,42 @@ public class MedicationSearchAdapter extends RecyclerView.Adapter<MedicationSear
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Pharmacy pharmacy = pharmacies.get(position);
-        if (pharmacy.getMedications() != null && !pharmacy.getMedications().isEmpty()) {
-            Medication medication = pharmacy.getMedications().get(0); // Assuming the first medication for simplicity
-            holder.medicationName.setText(medication.getMedicationName());
-            holder.milligrams.setText(medication.getMilligrams());
-            holder.price.setText(medication.getPrice());
+
+        Medication matchedMedication = null;
+        for (Medication medication : pharmacy.getMedications()) {
+            if (medication.getMedicationName().equalsIgnoreCase(searchQuery)) {
+                matchedMedication = medication;
+                break;
+            }
+        }
+
+        if (matchedMedication != null) {
+            holder.medicationName.setText(matchedMedication.getMedicationName());
+            holder.milligrams.setText(matchedMedication.getMilligrams());
+            holder.price.setText(matchedMedication.getPrice());
+
+            // Debug logs
+            Log.d("Adapter", "Medication Name: " + matchedMedication.getMedicationName());
+            Log.d("Adapter", "Milligrams: " + matchedMedication.getMilligrams());
+            Log.d("Adapter", "Price: " + matchedMedication.getPrice());
+        } else {
+            holder.medicationName.setText("N/A");
+            holder.milligrams.setText("N/A");
+            holder.price.setText("N/A");
+
+            Log.d("Adapter", "No medications found for pharmacy: " + pharmacy.getPharmacyName());
         }
 
         holder.pharmacyName.setText(pharmacy.getPharmacyName());
         holder.pharmacyAddress.setText(pharmacy.getPharmacyAddress());
         holder.pharmacyPhoneNumber.setText(pharmacy.getPharmacyPhoneNumber());
         holder.town.setText(pharmacy.getTown());
+
+        // Debug logs
+        Log.d("Adapter", "Pharmacy Name: " + pharmacy.getPharmacyName());
+        Log.d("Adapter", "Pharmacy Address: " + pharmacy.getPharmacyAddress());
+        Log.d("Adapter", "Pharmacy Phone Number: " + pharmacy.getPharmacyPhoneNumber());
+        Log.d("Adapter", "Town: " + pharmacy.getTown());
     }
 
     @Override
