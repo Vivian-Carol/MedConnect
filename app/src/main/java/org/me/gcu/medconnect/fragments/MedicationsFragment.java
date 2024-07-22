@@ -20,6 +20,7 @@ import org.me.gcu.medconnect.adapters.MedicationAdapter;
 import org.me.gcu.medconnect.models.Prescription;
 import org.me.gcu.medconnect.network.AwsClientProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationsFragment extends Fragment {
@@ -39,17 +40,18 @@ public class MedicationsFragment extends Fragment {
 
     private void fetchPrescriptionsFromDynamoDB() {
         new Thread(() -> {
-            DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(AwsClientProvider.getDynamoDBClient());
+            DynamoDBMapper dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
             List<Prescription> prescriptions = dynamoDBMapper.scan(Prescription.class, new DynamoDBScanExpression());
+            List<Prescription> modifiablePrescriptions = new ArrayList<>(prescriptions);
             FragmentActivity activity = getActivity();
             if (activity != null && isAdded()) {
-                activity.runOnUiThread(() -> displayPrescriptions(prescriptions));
+                activity.runOnUiThread(() -> displayPrescriptions(modifiablePrescriptions));
             }
         }).start();
     }
 
     private void displayPrescriptions(List<Prescription> prescriptions) {
-        adapter = new MedicationAdapter(prescriptions);
+        adapter = new MedicationAdapter(prescriptions, getActivity()); // Use getActivity() to ensure activity context
         recyclerView.setAdapter(adapter);
     }
 }

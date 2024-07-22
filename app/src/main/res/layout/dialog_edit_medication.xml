@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_medication_name"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:hint="@string/medication_name_hint"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_milligrams"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:hint="@string/milligrams_hint"
+        android:inputType="numberDecimal"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_dosage"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:hint="@string/dosage_hint"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_start_date"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/start_date_hint"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_end_date"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/end_date_hint"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_refill_date"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/refill_date_hint"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/spinner_frequency"
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <Spinner
+        android:id="@+id/spinner_instructions"
+        android:layout_width="match_parent"
+        android:layout_height="52dp" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_changes"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
