@@ -1,37 +1,41 @@
 //package org.me.gcu.medconnect.utils;
 //
-//import org.me.gcu.medconnect.models.Pharmacy;
 //import org.me.gcu.medconnect.models.Medication;
+//import org.me.gcu.medconnect.models.Pharmacy;
 //
+//import java.util.Collections;
 //import java.util.Comparator;
 //import java.util.List;
-//import java.util.stream.Collectors;
 //
 //public class FilterUtils {
 //
-//    // Filter pharmacies by region
-//    public static List<Pharmacy> filterByRegion(List<Pharmacy> pharmacies, String region) {
-//        return pharmacies.stream()
-//                .filter(pharmacy -> pharmacy.getTown().equalsIgnoreCase(region))
-//                .collect(Collectors.toList());
-//    }
-//
-//    // Sort pharmacies by the lowest medication price
-//    public static List<Pharmacy> sortByPrice(List<Pharmacy> pharmacies) {
-//        pharmacies.sort(Comparator.comparingDouble(pharmacy -> getLowestPrice(pharmacy.getMedications())));
+//    // Sort pharmacies by the lowest medication price for the given query
+//    public static List<Pharmacy> sortByPrice(List<Pharmacy> pharmacies, String query, boolean lowToHigh) {
+//        pharmacies.sort(Comparator.comparingDouble(pharmacy -> getLowestPrice(pharmacy.getMedications(), query)));
+//        if (!lowToHigh) {
+//            Collections.reverse(pharmacies);
+//        }
 //        return pharmacies;
 //    }
 //
-//    // Helper method to get the lowest price from the medications list
-//    private static double getLowestPrice(List<Medication> medications) {
+//    // Helper method to get the lowest price for the given query from the medications list
+//    private static double getLowestPrice(List<Medication> medications, String query) {
 //        return medications.stream()
-//                .mapToDouble(med -> Double.parseDouble(med.getPrice().replace(" KES", "")))
+//                .filter(med -> med.getMedicationName().equalsIgnoreCase(query))
+//                .mapToDouble(med -> {
+//                    try {
+//                        return Double.parseDouble(med.getPrice().replaceAll("[^0-9.]", "")); // Extract price properly
+//                    } catch (NumberFormatException e) {
+//                        return Double.MAX_VALUE;
+//                    }
+//                })
 //                .min()
 //                .orElse(Double.MAX_VALUE);
 //    }
 //}
-
 package org.me.gcu.medconnect.utils;
+
+import android.util.Log;
 
 import org.me.gcu.medconnect.models.Medication;
 import org.me.gcu.medconnect.models.Pharmacy;
@@ -41,16 +45,25 @@ import java.util.List;
 
 public class FilterUtils {
 
-    // Sort pharmacies by the lowest medication price
-    public static List<Pharmacy> sortByPrice(List<Pharmacy> pharmacies) {
-        pharmacies.sort(Comparator.comparingDouble(pharmacy -> getLowestPrice(pharmacy.getMedications())));
+    // Sort pharmacies by the lowest medication price for the given query
+    public static List<Pharmacy> sortByPrice(List<Pharmacy> pharmacies, String query) {
+        Log.d("FilterUtils", "Sorting by price for query: " + query);
+        pharmacies.sort(Comparator.comparingDouble(pharmacy -> getLowestPrice(pharmacy.getMedications(), query)));
         return pharmacies;
     }
 
-    // Helper method to get the lowest price from the medications list
-    private static double getLowestPrice(List<Medication> medications) {
+    // Helper method to get the lowest price for the given query from the medications list
+    private static double getLowestPrice(List<Medication> medications, String query) {
         return medications.stream()
-                .mapToDouble(med -> Double.parseDouble(med.getPrice().replace(" KES", "")))
+                .filter(med -> med.getMedicationName().equalsIgnoreCase(query))
+                .mapToDouble(med -> {
+                    try {
+                        return Double.parseDouble(med.getPrice().replace(" KES", ""));
+                    } catch (NumberFormatException e) {
+                        Log.e("FilterUtils", "Error parsing price for medication: " + med.getMedicationName(), e);
+                        return Double.MAX_VALUE;
+                    }
+                })
                 .min()
                 .orElse(Double.MAX_VALUE);
     }

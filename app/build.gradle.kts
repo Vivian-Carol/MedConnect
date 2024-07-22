@@ -203,6 +203,8 @@ dependencies {
     implementation("org.apache.pdfbox:pdfbox:3.0.2")
     implementation("org.apache.commons:commons-io:1.3.2")
 
+    implementation("androidx.cardview:cardview:1.0.0")
+
     implementation(libs.appcompat)
     implementation(libs.activity)
     implementation(libs.constraintlayout)

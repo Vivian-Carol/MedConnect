@@ -29,9 +29,10 @@ import org.me.gcu.medconnect.models.Pharmacy;
 import org.me.gcu.medconnect.network.AwsClientProvider;
 import org.me.gcu.medconnect.network.RegionService;
 import org.me.gcu.medconnect.network.RetrofitClient;
+import org.me.gcu.medconnect.utils.FilterUtils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +50,7 @@ public class SearchFragment extends Fragment {
     private DynamoDBMapper dynamoDBMapper;
     private RegionService regionService;
 
+    private List<Pharmacy> allPharmacies = new ArrayList<>();
     private List<Pharmacy> searchResults = new ArrayList<>();
 
     @Nullable
@@ -69,7 +71,9 @@ public class SearchFragment extends Fragment {
         dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
         regionService = RetrofitClient.getRetrofitInstance().create(RegionService.class);
 
+        initializeSpinners();
         fetchRegions();
+        fetchDataFromDynamoDB();
 
         searchButton.setOnClickListener(v -> searchMedications());
 
@@ -96,13 +100,31 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    private void initializeSpinners() {
+        // Initialize Region Spinner
+        ArrayAdapter<CharSequence> regionAdapter = ArrayAdapter.createFromResource(
+                getContext(), R.array.region_array, R.layout.spinner_item);
+        regionAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        regionSpinner.setAdapter(regionAdapter);
+
+        // Initialize Sort Spinner
+        ArrayAdapter<CharSequence> sortAdapter = ArrayAdapter.createFromResource(
+                getContext(), R.array.sort_array, R.layout.spinner_item);
+        sortAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(sortAdapter);
+    }
+
+
     private void fetchRegions() {
         regionService.getRegions().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<String> regions = response.body();
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, regions);
+                    List<String> regions = new ArrayList<>();
+                    regions.add(getString(R.string.region_hint)); // Add hint as the first item
+                    regions.addAll(response.body());
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, regions);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     regionSpinner.setAdapter(adapter);
                 } else {
@@ -117,6 +139,20 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    private void fetchDataFromDynamoDB() {
+        new Thread(() -> {
+            try {
+                DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+                PaginatedScanList<Pharmacy> scanResult = dynamoDBMapper.scan(Pharmacy.class, scanExpression);
+                allPharmacies.clear();
+                allPharmacies.addAll(scanResult);
+            } catch (Exception e) {
+                Log.e("SearchFragment", "Error fetching data from DynamoDB", e);
+                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error fetching data", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
     private void searchMedications() {
         String query = searchQuery.getText().toString().trim();
         if (query.isEmpty()) {
@@ -127,52 +163,28 @@ public class SearchFragment extends Fragment {
         Log.d("SearchFragment", "Search query: " + query);
 
         new Thread(() -> {
-            try {
-                DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-                PaginatedScanList<Pharmacy> scanResult = dynamoDBMapper.scan(Pharmacy.class, scanExpression);
-
-                searchResults.clear();
-                Log.d("SearchFragment", "Total pharmacies scanned: " + scanResult.size());
-
-                for (Pharmacy pharmacy : scanResult) {
-                    boolean hasMedication = false;
-                    List<Medication> medicationsList = pharmacy.getMedications();
-
-                    Log.d("SearchFragment", "Pharmacy ID: " + pharmacy.getPharmacyID() + " - Number of medications: " + medicationsList.size());
-
-                    for (Medication medication : medicationsList) {
-                        Log.d("Medication Details", medication.toString());
-
-                        String medicationName = medication.getMedicationName();
-                        Log.d("SearchFragment", "Checking medication: " + medicationName);
-
-                        if (medicationName.equalsIgnoreCase(query)) {
-                            hasMedication = true;
-                            Log.d("SearchFragment", "Medication found: " + medicationName);
-                            break;
-                        }
-                    }
-
-                    if (hasMedication) {
-                        searchResults.add(pharmacy);
-                        Log.d("SearchFragment", "Pharmacy added: " + pharmacy.getPharmacyID());
+            searchResults.clear();
+            for (Pharmacy pharmacy : allPharmacies) {
+                boolean hasMedication = false;
+                for (Medication medication : pharmacy.getMedications()) {
+                    if (medication.getMedicationName().equalsIgnoreCase(query)) {
+                        hasMedication = true;
+                        break;
                     }
                 }
-
-                Log.d("SearchFragment", "Results found: " + searchResults.size());
-
-                getActivity().runOnUiThread(() -> {
-                    medicationAdapter.updateData(searchResults, query);
-                    if (searchResults.isEmpty()) {
-                        Toast.makeText(getContext(), "No results found for query: " + query, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getContext(), "Found " + searchResults.size() + " pharmacies", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            } catch (Exception e) {
-                Log.e("SearchFragment", "Error during search", e);
-                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "Error during search", Toast.LENGTH_SHORT).show());
+                if (hasMedication) {
+                    searchResults.add(pharmacy);
+                }
             }
+
+            getActivity().runOnUiThread(() -> {
+                medicationAdapter.updateData(searchResults, query);
+                if (searchResults.isEmpty()) {
+                    Toast.makeText(getContext(), "No results found for query: " + query, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Found " + searchResults.size() + " pharmacies", Toast.LENGTH_SHORT).show();
+                }
+            });
         }).start();
     }
 
@@ -181,24 +193,30 @@ public class SearchFragment extends Fragment {
         String selectedRegion = regionSpinner.getSelectedItem() != null ? regionSpinner.getSelectedItem().toString() : "";
         String selectedSortOption = sortSpinner.getSelectedItem() != null ? sortSpinner.getSelectedItem().toString() : "";
 
+        Log.d("SearchFragment", "Filtering results for region: " + selectedRegion + ", sort option: " + selectedSortOption);
+
         List<Pharmacy> filteredResults = new ArrayList<>();
 
+        // Filter by region
         for (Pharmacy pharmacy : searchResults) {
-            if (pharmacy.getPharmacyAddress().contains(selectedRegion)) {
+            if (selectedRegion.equals("Region") || pharmacy.getPharmacyAddress().contains(selectedRegion)) {
                 filteredResults.add(pharmacy);
             }
         }
 
-        if (selectedSortOption.equals("Price")) {
-            filteredResults.sort(Comparator.comparingDouble(pharmacy -> {
-                return pharmacy.getMedications().stream()
-                        .filter(med -> med.getMedicationName().equalsIgnoreCase(query))
-                        .mapToDouble(med -> Double.parseDouble(med.getPrice().replace(" KES", "")))
-                        .min()
-                        .orElse(Double.MAX_VALUE);
-            }));
+        // Sort by price if applicable
+        if (selectedSortOption.equals("Low to High")) {
+            Log.d("SearchFragment", "Sorting by price: Low to High");
+            filteredResults = FilterUtils.sortByPrice(filteredResults, query);
+        } else if (selectedSortOption.equals("High to Low")) {
+            Log.d("SearchFragment", "Sorting by price: High to Low");
+            filteredResults = FilterUtils.sortByPrice(filteredResults, query);
+            Collections.reverse(filteredResults);
         }
 
+        Log.d("SearchFragment", "Filtered results count: " + filteredResults.size());
         medicationAdapter.updateData(filteredResults, query);
     }
+
+
 }

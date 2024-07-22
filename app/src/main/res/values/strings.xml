@@ -21,6 +21,10 @@
     <string name="pharmacy_phone_number">Pharmacy Phone Number</string>
     <string name="pharmacy_address">Pharmacy Address</string>
     <string name="town">Town</string>
+    <string name="search_medication">Search Medication</string>
+    <string name="search">Search</string>
+    <string name="region_hint">Select Region</string>
+    <string name="sort_by_price_hint">Sort by Price</string>
 
 <!--    <string-array name="regions_array">-->
 <!--        <item>Nairobi</item>-->
@@ -30,9 +34,19 @@
 <!--        <item>Nakuru</item>-->
 <!--    </string-array>-->
 
-    <string-array name="sort_options_array">
-        <item>Price</item>
+    <string-array name="region_array">
+        <item>Region</item>
+        <item>Region 1</item>
+        <item>Region 2</item>
+        <item>Region 3</item>
     </string-array>
+
+    <string-array name="sort_array">
+        <item>Sort by Price</item>
+        <item>Low to High</item>
+        <item>High to Low</item>
+    </string-array>
+
 
     <string-array name="frequency_array">
         <item>1</item>

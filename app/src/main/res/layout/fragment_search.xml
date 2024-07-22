@@ -10,7 +10,7 @@
         android:id="@+id/search_query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search Medication"
+        android:hint="@string/search_medication"
         android:padding="12dp"
         android:background="@drawable/edit_text_background"
         android:drawableStart="@drawable/ic_search"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Search"
+        android:text="@string/search"
         android:background="@color/purple"
         android:textColor="@color/white"
         android:padding="12dp"
@@ -31,28 +31,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="66dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/region_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_weight="1"
-            android:padding="8dp"
             android:background="@drawable/spinner_background"
+            android:padding="8dp"
             android:popupBackground="@color/white"
             android:spinnerMode="dropdown" />
 
         <Spinner
             android:id="@+id/sort_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="56dp"
             android:layout_marginStart="8dp"
-            android:padding="8dp"
+            android:layout_weight="1"
             android:background="@drawable/spinner_background"
+            android:padding="8dp"
             android:popupBackground="@color/white"
             android:spinnerMode="dropdown" />
     </LinearLayout>

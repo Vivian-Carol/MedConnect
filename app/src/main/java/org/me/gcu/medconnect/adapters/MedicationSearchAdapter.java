@@ -28,6 +28,7 @@ public class MedicationSearchAdapter extends RecyclerView.Adapter<MedicationSear
     public void updateData(List<Pharmacy> newPharmacies, String newSearchQuery) {
         this.pharmacies = newPharmacies;
         this.searchQuery = newSearchQuery;
+        Log.d("MedicationSearchAdapter", "Updating adapter with " + newPharmacies.size() + " items"); // Debug log
         notifyDataSetChanged();
     }
 

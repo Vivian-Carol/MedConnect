@@ -117,127 +117,74 @@
 //            List<String> phoneNumbers = Arrays.asList(
 //                    "+254711000001", "+254711000002", "+254711000003", "+254711000004", "+254711000005");
 //
-//            List<Medication> medications = Arrays.asList(
+//            List<Medication> commonMedications = Arrays.asList(
 //                    new Medication("Paracetamol", "500mg", "50 KES"),
-//                    new Medication("Amoxicillin", "250mg", "200 KES"),
 //                    new Medication("Ibuprofen", "400mg", "100 KES"),
-//                    new Medication("Cetirizine", "10mg", "150 KES"),
 //                    new Medication("Aspirin", "300mg", "80 KES"),
+//                    new Medication("Cetirizine", "10mg", "150 KES"),
+//                    new Medication("Amoxicillin", "250mg", "200 KES")
+//            );
+//
+//            List<Medication> rareMedications = Arrays.asList(
 //                    new Medication("Metformin", "500mg", "250 KES"),
 //                    new Medication("Loratadine", "10mg", "120 KES"),
 //                    new Medication("Azithromycin", "500mg", "300 KES"),
 //                    new Medication("Hydroxychloroquine", "200mg", "400 KES"),
 //                    new Medication("Doxycycline", "100mg", "350 KES"),
-//                    new Medication("Nimesulide", "100mg", "150 KES"),
-//                    new Medication("Serratiopeptidase", "10mg", "200 KES"),
-//                    new Medication("Cefuroxime", "500mg", "250 KES"),
-//                    new Medication("Ceftriaxone", "1g", "300 KES"),
-//                    new Medication("Cefixime", "200mg", "150 KES"),
-//                    new Medication("Ciprofloxacin", "500mg", "100 KES"),
-//                    new Medication("Glipizide", "5mg", "50 KES"),
-//                    new Medication("Beclomethasone/neomycin", "0.1mg", "200 KES"),
-//                    new Medication("Amoxicillin/clavulanate", "875mg/125mg", "300 KES"),
-//                    new Medication("Atorvastatin", "10mg", "150 KES"),
-//                    new Medication("Gliclazide", "80mg", "100 KES"),
-//                    new Medication("Meloxicam", "7.5mg", "120 KES"),
 //                    new Medication("Paclitaxel", "100mg", "500 KES"),
 //                    new Medication("Docetaxel", "80mg", "450 KES"),
 //                    new Medication("Lactulose", "10g/15ml", "200 KES"),
 //                    new Medication("Glucosamine/chondrointin", "500mg/400mg", "250 KES"),
 //                    new Medication("Venlafaxine", "75mg", "300 KES"),
-//                    new Medication("Esomeprazole", "40mg", "150 KES"),
-//                    new Medication("Fluphenazine", "25mg", "200 KES"),
-//                    new Medication("Oxcarbazepine", "300mg", "250 KES"),
-//                    new Medication("Octreotide", "100mcg/ml", "300 KES"),
-//                    new Medication("Zolpidem", "10mg", "150 KES"),
-//                    new Medication("Lithium Carbonate", "300mg", "100 KES"),
-//                    new Medication("Gatifloxacin", "400mg", "200 KES"),
-//                    new Medication("Quinine", "300mg", "150 KES"),
-//                    new Medication("Ambroxol", "30mg", "100 KES"),
-//                    new Medication("Nystatin", "100,000 units/ml", "50 KES"),
-//                    new Medication("Fluconazole", "150mg", "100 KES"),
-//                    new Medication("Iron/haematinic Preparation", "100mg", "120 KES"),
-//                    new Medication("Diclofenac", "50mg", "80 KES"),
-//                    new Medication("Carbamazepine", "200mg", "100 KES"),
-//                    new Medication("Phenytoin", "100mg", "150 KES"),
-//                    new Medication("Acyclovir", "200mg", "200 KES"),
-//                    new Medication("Vitamin E", "400 IU", "100 KES"),
-//                    new Medication("Griseofulvin", "500mg", "200 KES"),
-//                    new Medication("Ofloxacin", "200mg", "150 KES"),
-//                    new Medication("Rifampicin", "300mg", "200 KES"),
-//                    new Medication("Carbimazole", "5mg", "100 KES"),
-//                    new Medication("Chlorhexidine", "0.5%", "50 KES"),
-//                    new Medication("Erythromycin", "500mg", "150 KES"),
-//                    new Medication("Cyclophosphamide", "50mg", "300 KES"),
-//                    new Medication("Bleomycin Sulphate", "15 units", "400 KES"),
-//                    new Medication("Vincristine", "1mg", "350 KES"),
-//                    new Medication("Vitamin B1/b6/b12", "100mg/200mg/200mcg", "150 KES"),
-//                    new Medication("Miconazole", "2%", "100 KES"),
-//                    new Medication("Calcium/vitamin D", "500mg/200 IU", "200 KES"),
-//                    new Medication("Chlorhexidine/cetrimide", "0.5%/0.5%", "100 KES"),
-//                    new Medication("Chloramphenicol", "250mg", "150 KES"),
-//                    new Medication("Hyoscine Butylbromide", "10mg", "80 KES"),
-//                    new Medication("Omeprazole", "20mg", "100 KES"),
-//                    new Medication("Cephalexin", "500mg", "150 KES"),
-//                    new Medication("Insulin", "100 IU/ml", "200 KES"),
-//                    new Medication("Vitamin/mineral Preparation", "100mg", "50 KES"),
-//                    new Medication("Artesunate", "50mg", "100 KES"),
-//                    new Medication("Propofol", "10mg/ml", "200 KES"),
-//                    new Medication("Lignocaine", "2%", "50 KES"),
-//                    new Medication("Heparin", "5000 IU/ml", "150 KES"),
-//                    new Medication("Ketamine", "50mg/ml", "300 KES"),
-//                    new Medication("Bromhexine/pseudoephedrine", "8mg/60mg", "100 KES"),
-//                    new Medication("Methyltestosterone", "10mg", "200 KES"),
-//                    new Medication("Human Anti-d Immunoglobulin", "1000 IU", "500 KES"),
-//                    new Medication("Cefadroxil", "500mg", "150 KES"),
-//                    new Medication("Losartan/hydrochlorthiazide", "50mg/12.5mg", "100 KES"),
+//                    new Medication("Methotrexate", "2.5mg", "150 KES"),
+//                    new Medication("Amitriptyline", "25mg", "100 KES"),
+//                    new Medication("Gabapentin", "300mg", "350 KES"),
+//                    new Medication("Carbamazepine", "200mg", "200 KES"),
+//                    new Medication("Lamotrigine", "100mg", "250 KES"),
+//                    new Medication("Levothyroxine", "100mcg", "150 KES"),
+//                    new Medication("Sulfasalazine", "500mg", "300 KES"),
+//                    new Medication("Mycophenolate mofetil", "500mg", "450 KES"),
+//                    new Medication("Tamsulosin", "0.4mg", "200 KES"),
+//                    new Medication("Finasteride", "5mg", "250 KES"),
+//                    new Medication("Prednisolone", "5mg", "100 KES"),
+//                    new Medication("Spironolactone", "25mg", "150 KES"),
+//                    new Medication("Hydrochlorothiazide", "25mg", "100 KES"),
+//                    new Medication("Losartan", "50mg", "200 KES"),
+//                    new Medication("Amlodipine", "5mg", "120 KES"),
+//                    new Medication("Olmesartan", "20mg", "300 KES"),
+//                    new Medication("Bisoprolol", "5mg", "150 KES"),
+//                    new Medication("Rivaroxaban", "20mg", "400 KES"),
+//                    new Medication("Apixaban", "5mg", "350 KES"),
+//                    new Medication("Dabigatran", "150mg", "450 KES"),
+//                    new Medication("Warfarin", "5mg", "100 KES"),
+//                    new Medication("Clopidogrel", "75mg", "200 KES"),
+//                    new Medication("Atorvastatin", "20mg", "250 KES"),
+//                    new Medication("Rosuvastatin", "10mg", "300 KES"),
+//                    new Medication("Sitagliptin", "100mg", "400 KES"),
+//                    new Medication("Insulin glargine", "100 IU/ml", "500 KES"),
+//                    new Medication("Insulin aspart", "100 IU/ml", "450 KES"),
+//                    new Medication("Pregabalin", "75mg", "350 KES"),
+//                    new Medication("Duloxetine", "30mg", "300 KES"),
+//                    new Medication("Bupropion", "150mg", "400 KES"),
+//                    new Medication("Escitalopram", "10mg", "200 KES"),
 //                    new Medication("Sertraline", "50mg", "200 KES"),
-//                    new Medication("Nicorandil", "10mg", "150 KES"),
-//                    new Medication("Mosapride", "5mg", "100 KES"),
-//                    new Medication("Leflunomide", "10mg", "250 KES"),
-//                    new Medication("Iron Hydroxide/folic Acid", "100mg/0.5mg", "50 KES"),
-//                    new Medication("Halothane", "250ml", "200 KES"),
-//                    new Medication("Dihydroartemisinin", "40mg", "100 KES"),
-//                    new Medication("Tramadol", "50mg", "100 KES"),
-//                    new Medication("Valganciclovir", "450mg", "300 KES"),
-//                    new Medication("Nystatin/neomycin/gramicidin/triamcinolon", "100,000 units/2.5mg/0.25mg", "200 KES"),
-//                    new Medication("Tribenoside/lignocaine", "5mg/20mg", "100 KES"),
-//                    new Medication("Tetrahydrozoline", "0.05%", "50 KES"),
-//                    new Medication("Mebeverine", "135mg", "150 KES"),
-//                    new Medication("Betamethasone", "0.5mg", "100 KES"),
-//                    new Medication("Amodiaquine", "200mg", "150 KES"),
-//                    new Medication("Framycetin/gramicidin/dexamethasone", "0.5%/0.05%/0.05%", "200 KES"),
-//                    new Medication("Tamsulosin", "0.4mg", "150 KES"),
-//                    new Medication("Ciprofloxacin/dexamethasone", "0.3%/0.1%", "200 KES"),
-//                    new Medication("Amoxiciillin", "500mg", "100 KES"),
-//                    new Medication("Gentamicin", "40mg/ml", "100 KES"),
-//                    new Medication("Ethinylestradiol/levonorgestrel", "30mcg/150mcg", "100 KES"),
-//                    new Medication("Tamoxifen", "10mg", "200 KES"),
-//                    new Medication("Liniment/balm", "100ml", "50 KES"),
-//                    new Medication("Vit B Complex", "100mg", "50 KES"),
-//                    new Medication("Lomefloxacin", "400mg", "200 KES"),
-//                    new Medication("Mometasone", "0.1%", "100 KES"),
-//                    new Medication("Vitamin E/aloe Vera", "400 IU/100mg", "150 KES"),
-//                    new Medication("Budesonide", "0.5mg/2ml", "200 KES"),
-//                    new Medication("Clopidogrel", "75mg", "100 KES"),
-//                    new Medication("Nifedipine", "10mg", "150 KES"),
-//                    new Medication("Lansoprazole/clarithromycin/tinidazole", "30mg/500mg/500mg", "300 KES"),
-//                    new Medication("Benzathine Penicillin", "1.2 million units", "200 KES"),
-//                    new Medication("Procaine Penicillin", "600,000 units", "100 KES"),
-//                    new Medication("Iron/haematinic Preparation", "100mg", "50 KES"),
-//                    new Medication("Paracetamol/ibuprofen", "500mg/200mg", "50 KES"),
-//                    new Medication("Ampicillin/cloxacillin", "250mg/250mg", "200 KES"),
-//                    new Medication("Lindane", "1%", "100 KES"),
-//                    new Medication("Adapalene", "0.1%", "100 KES"),
-//                    new Medication("Valganciclovir", "450mg", "200 KES"),
-//                    new Medication("Nystatin/neomycin/gramicidin/triamcinolon", "100,000 units/2.5mg/0.25mg", "100 KES"),
-//                    new Medication("Tribenoside/lignocaine", "5mg/20mg", "50 KES"),
-//                    new Medication("Ciprofloxacin/dexamethasone", "0.3%/0.1%", "200 KES"),
-//                    new Medication("Amoxiciillin", "500mg", "100 KES"),
-//                    new Medication("Lignocaine/adrenaline", "2%/1:100,000", "100 KES"),
-//                    new Medication("Heparin/allantoin", "50mg/10mg", "50 KES"),
-//                    new Medication("Fluconazole", "150mg", "200 KES"),
-//                    new Medication("Ibuprofen", "400mg", "100 KES")
+//                    new Medication("Paroxetine", "20mg", "250 KES"),
+//                    new Medication("Citalopram", "20mg", "200 KES"),
+//                    new Medication("Vortioxetine", "10mg", "350 KES"),
+//                    new Medication("Quetiapine", "100mg", "300 KES"),
+//                    new Medication("Olanzapine", "10mg", "250 KES"),
+//                    new Medication("Risperidone", "2mg", "200 KES"),
+//                    new Medication("Aripiprazole", "10mg", "400 KES"),
+//                    new Medication("Lurasidone", "40mg", "450 KES"),
+//                    new Medication("Ziprasidone", "20mg", "300 KES"),
+//                    new Medication("Paliperidone", "3mg", "400 KES"),
+//                    new Medication("Lisdexamfetamine", "30mg", "500 KES"),
+//                    new Medication("Methylphenidate", "10mg", "300 KES"),
+//                    new Medication("Atomoxetine", "25mg", "350 KES"),
+//                    new Medication("Modafinil", "100mg", "400 KES"),
+//                    new Medication("Naltrexone", "50mg", "250 KES"),
+//                    new Medication("Acamprosate", "333mg", "200 KES"),
+//                    new Medication("Disulfiram", "500mg", "300 KES")
 //            );
 //
 //            Random rand = new Random();
@@ -247,8 +194,20 @@
 //                String pharmacyName = pharmacyNames.get(rand.nextInt(pharmacyNames.size()));
 //                String address = addresses.get(rand.nextInt(addresses.size()));
 //                String phoneNumber = phoneNumbers.get(rand.nextInt(phoneNumbers.size()));
-//                // Ensure at least 20 medications for each pharmacy
-//                List<Medication> meds = new ArrayList<>(medications.subList(0, 20 + rand.nextInt(medications.size() - 20)));
+//
+//                // Ensure all pharmacies have common medications
+//                List<Medication> meds = new ArrayList<>();
+//                for (Medication commonMed : commonMedications) {
+//                    meds.add(new Medication(commonMed.getMedicationName(), commonMed.getMilligrams(), generateDynamicPrice(commonMed.getPrice())));
+//                }
+//
+//                // Add a random number of rare medications
+//                int rareMedCount = rand.nextInt(10) + 1; // Include 1 to 10 rare medications
+//                for (int j = 0; j < rareMedCount; j++) {
+//                    Medication med = rareMedications.get(rand.nextInt(rareMedications.size()));
+//                    meds.add(new Medication(med.getMedicationName(), med.getMilligrams(), generateDynamicPrice(med.getPrice())));
+//                }
+//
 //                String town = address.split(",")[1].trim();
 //
 //                Pharmacy item = new Pharmacy(pharmacyID, pharmacyName, phoneNumber, address, town, meds);
@@ -257,6 +216,13 @@
 //            }
 //
 //            System.out.println("Data inserted successfully!");
+//        }
+//
+//        private String generateDynamicPrice(String basePrice) {
+//            Random rand = new Random();
+//            double price = Double.parseDouble(basePrice.replace(" KES", ""));
+//            double variation = price * (rand.nextDouble() * 0.4 - 0.2); // +/- 20%
+//            return String.format("%.2f KES", price + variation);
 //        }
 //    }
 //}
