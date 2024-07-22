@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -85,11 +86,22 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
         etStartDate.setText(prescription.getStartDate());
         etEndDate.setText(prescription.getEndDate());
         etRefillDate.setText(prescription.getRefillDate());
-        // Set the selected values for spinners if needed
-
         setUpDatePicker(etStartDate);
         setUpDatePicker(etEndDate);
         setUpDatePicker(etRefillDate);
+
+        // Initialize spinners with options and prefill
+        ArrayAdapter<CharSequence> frequencyAdapter = ArrayAdapter.createFromResource(context, R.array.frequency_array, android.R.layout.simple_spinner_item);
+        frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFrequency.setAdapter(frequencyAdapter);
+        int frequencyPosition = frequencyAdapter.getPosition(prescription.getFrequency());
+        spinnerFrequency.setSelection(frequencyPosition);
+
+        ArrayAdapter<CharSequence> instructionsAdapter = ArrayAdapter.createFromResource(context, R.array.instructions_array, android.R.layout.simple_spinner_item);
+        instructionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerInstructions.setAdapter(instructionsAdapter);
+        int instructionsPosition = instructionsAdapter.getPosition(prescription.getInstructions());
+        spinnerInstructions.setSelection(instructionsPosition);
 
         AlertDialog dialog = builder.create();
 
@@ -97,9 +109,11 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
             prescription.setMedicationName(etMedicationName.getText().toString());
             prescription.setMilligrams(Integer.parseInt(etMilligrams.getText().toString())); // Convert to int
             prescription.setDosage(etDosage.getText().toString());
+            prescription.setFrequency(spinnerFrequency.getSelectedItem().toString());
             prescription.setStartDate(etStartDate.getText().toString());
             prescription.setEndDate(etEndDate.getText().toString());
             prescription.setRefillDate(etRefillDate.getText().toString());
+            prescription.setInstructions(spinnerInstructions.getSelectedItem().toString());
 
             new Thread(() -> {
                 try {
