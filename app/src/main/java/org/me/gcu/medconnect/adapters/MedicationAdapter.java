@@ -33,11 +33,14 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
     private final List<Prescription> prescriptions;
     private final DynamoDBMapper dynamoDBMapper;
     private final Context context;
+    private final TextView emptyView;
 
-    public MedicationAdapter(List<Prescription> prescriptions, Context context) {
-        this.prescriptions = prescriptions;
+    public MedicationAdapter(List<Prescription> prescriptions, Context context, TextView emptyView) {
+        this.prescriptions = new ArrayList<>(prescriptions); // Create a modifiable copy of the list
         this.dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
         this.context = context;
+        this.emptyView = emptyView;
+        checkEmptyView();
     }
 
     @NonNull
@@ -51,7 +54,6 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prescription prescription = prescriptions.get(position);
         holder.medicationName.setText(prescription.getMedicationName());
-        holder.milligrams.setText(String.valueOf(prescription.getMilligrams()));
         holder.dosage.setText(prescription.getDosage());
         holder.frequency.setText(prescription.getFrequency());
         holder.startDate.setText(prescription.getStartDate());
@@ -63,6 +65,11 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
         holder.deleteButton.setOnClickListener(v -> confirmDeleteMedication(prescription, position));
     }
 
+    @Override
+    public int getItemCount() {
+        return prescriptions.size();
+    }
+
     private void showEditDialog(Prescription prescription, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -70,7 +77,6 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
         builder.setView(dialogView);
 
         EditText etMedicationName = dialogView.findViewById(R.id.et_medication_name);
-        EditText etMilligrams = dialogView.findViewById(R.id.et_milligrams);
         EditText etDosage = dialogView.findViewById(R.id.et_dosage);
         Spinner spinnerFrequency = dialogView.findViewById(R.id.spinner_frequency);
         EditText etStartDate = dialogView.findViewById(R.id.et_start_date);
@@ -81,7 +87,6 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
 
         // Prefill current values
         etMedicationName.setText(prescription.getMedicationName());
-        etMilligrams.setText(String.valueOf(prescription.getMilligrams()));
         etDosage.setText(prescription.getDosage());
         etStartDate.setText(prescription.getStartDate());
         etEndDate.setText(prescription.getEndDate());
@@ -107,7 +112,6 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
 
         btnSave.setOnClickListener(v -> {
             prescription.setMedicationName(etMedicationName.getText().toString());
-            prescription.setMilligrams(Integer.parseInt(etMilligrams.getText().toString())); // Convert to int
             prescription.setDosage(etDosage.getText().toString());
             prescription.setFrequency(spinnerFrequency.getSelectedItem().toString());
             prescription.setStartDate(etStartDate.getText().toString());
@@ -153,6 +157,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
                 ((Activity) context).runOnUiThread(() -> {
                     prescriptions.remove(position); // Remove from list
                     notifyItemRemoved(position); // Notify adapter
+                    checkEmptyView(); // Check if the list is empty and show the empty view
                     Toast.makeText(context, "Medication deleted", Toast.LENGTH_SHORT).show();
                 });
             } catch (Exception e) {
@@ -165,19 +170,21 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
         }).start();
     }
 
-    @Override
-    public int getItemCount() {
-        return prescriptions.size();
+    private void checkEmptyView() {
+        if (prescriptions.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView medicationName, milligrams, dosage, frequency, startDate, endDate, refillDate, instructions;
+        TextView medicationName, dosage, frequency, startDate, endDate, refillDate, instructions;
         Button editButton, deleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             medicationName = itemView.findViewById(R.id.medication_name);
-            milligrams = itemView.findViewById(R.id.milligrams);
             dosage = itemView.findViewById(R.id.dosage);
             frequency = itemView.findViewById(R.id.frequency);
             startDate = itemView.findViewById(R.id.start_date);

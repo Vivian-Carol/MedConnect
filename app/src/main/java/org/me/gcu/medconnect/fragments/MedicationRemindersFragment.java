@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.me.gcu.medconnect.R;
 import org.me.gcu.medconnect.adapters.MedicationReminderAdapter;
-import org.me.gcu.medconnect.models.Reminder;
+import org.me.gcu.medconnect.models.Prescription;
+import org.me.gcu.medconnect.network.AwsClientProvider;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MedicationRemindersFragment extends Fragment {
@@ -29,23 +31,22 @@ public class MedicationRemindersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medication_reminders, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        fetchReminders();
+        fetchRemindersFromDynamoDB();
         return view;
     }
 
-    private void fetchReminders() {
-        // This method should fetch reminders from your data source
-        // For now, let's create a dummy list of reminders
-
-        List<Reminder> reminders = new ArrayList<>();
-        reminders.add(new Reminder("Medication 1", "10mg", "Twice a day", "Morning", "2024-01-01 08:00"));
-        reminders.add(new Reminder("Medication 2", "20mg", "Once a day", "Evening", "2024-01-01 20:00"));
-
-        displayReminders(reminders);
+    private void fetchRemindersFromDynamoDB() {
+        new Thread(() -> {
+            DynamoDBMapper dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
+            List<Prescription> prescriptions = dynamoDBMapper.scan(Prescription.class, new DynamoDBScanExpression());
+            if (isAdded()) {
+                getActivity().runOnUiThread(() -> displayReminders(prescriptions));
+            }
+        }).start();
     }
 
-    private void displayReminders(List<Reminder> reminders) {
-        adapter = new MedicationReminderAdapter(reminders);
+    private void displayReminders(List<Prescription> prescriptions) {
+        adapter = new MedicationReminderAdapter(prescriptions, getContext());
         recyclerView.setAdapter(adapter);
     }
 }

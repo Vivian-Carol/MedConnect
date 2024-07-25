@@ -60,15 +60,10 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
-        <item>4</item>
-        <item>5</item>
     </string-array>
 
     <string-array name="instructions_array">
         <item>Before Meal</item>
         <item>After Meal</item>
-        <item>With Food</item>
-        <item>Without Food</item>
-        <item>Before Bed</item>
     </string-array>
 </resources>
