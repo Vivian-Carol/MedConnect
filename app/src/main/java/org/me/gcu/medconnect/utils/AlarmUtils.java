@@ -3,7 +3,6 @@ package org.me.gcu.medconnect.utils;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.util.Date;
@@ -26,4 +25,3 @@ public class AlarmUtils {
         }
     }
 }
-

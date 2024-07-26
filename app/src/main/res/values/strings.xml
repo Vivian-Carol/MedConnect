@@ -1,5 +1,29 @@
 <resources>
     <string name="app_name">MedConnect</string>
+
+
+    <string name="Login">Login</string>
+    <string name="Password">Password</string>
+    <string name="RepeatPassword">Repeat Password</string>
+    <string name="Mobile">Mobile</string>
+    <string name="Email">Email</string>
+    <string name="Username">Username</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="ConfCode">Enter Confirmation Code Here</string>
+    <string name="Confirm">Confirm</string>
+    <string name="Verify">Verify</string>
+    <string name="NotAccount">Don\'t have account?</string>
+    <string name="ForgetPass">Forget Your Password?</string>
+    <string name="AgreeTerms">Agree to the Terms and Conditions</string>
+
+    <string name="welcome_text">Welcome!</string>
+
+    <string name="hi_user">Hi User</string>
+    <string name="your_reminders">Your Reminders</string>
+    <string name="view_more">View More</string>
+    <string name="your_medications">Your Medications</string>
+
+
     <string name="medications_title">Medications</string>
     <string name="medication_name">Medication Name</string>
     <string name="dosage">Dose-Form</string>

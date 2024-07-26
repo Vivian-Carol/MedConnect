@@ -2,13 +2,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
     <Button
         android:id="@+id/btn_add_prescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Prescription" />
+        android:text="Add Prescription"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

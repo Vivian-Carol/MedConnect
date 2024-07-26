@@ -7,14 +7,29 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="org.me.gcu.medconnect.fragments.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="USERNAME"
+            app:argType="string" />
+        <argument
+            android:name="USER_ID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_homeFragment_to_remindersFragment"
+            app:destination="@id/nav_reminders" />
+        <action
+            android:id="@+id/action_homeFragment_to_medicationsFragment"
+            app:destination="@id/nav_medications" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_medications"
         android:name="org.me.gcu.medconnect.fragments.MedicationsFragment"
-        android:label="Medications"
-        tools:layout="@layout/fragment_medications" />
+        tools:layout="@layout/fragment_medications">
+        <argument
+            android:name="USER_ID"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_reminders"
@@ -25,8 +40,11 @@
     <fragment
         android:id="@+id/nav_prescriptions"
         android:name="org.me.gcu.medconnect.fragments.PrescriptionsFragment"
-        android:label="Prescriptions"
-        tools:layout="@layout/fragment_prescriptions" />
+        tools:layout="@layout/fragment_prescriptions">
+        <argument
+            android:name="USER_ID"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_search"

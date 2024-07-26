@@ -1,24 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    android:background="@color/white"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
+    <!-- Image on the left side -->
+    <ImageView
+        android:id="@+id/reminder_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_reminder_placeholder" />
+
+    <!-- Texts on the right side -->
     <LinearLayout
+        android:id="@+id/text_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/reminder_image"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginStart="16dp">
 
         <TextView
             android:id="@+id/medication_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/medication_name"
+            android:text="Medication Name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -26,37 +34,7 @@
             android:id="@+id/dosage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dosage"
-            android:paddingTop="4dp" />
-
-        <TextView
-            android:id="@+id/frequency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/frequency"
-            android:paddingTop="4dp" />
-
-        <TextView
-            android:id="@+id/time_of_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time_of_day"
-            android:paddingTop="4dp" />
-
-        <TextView
-            android:id="@+id/next_reminder_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next_reminder_time"
-            android:paddingTop="4dp" />
-
-        <Button
-            android:id="@+id/snooze_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/snooze"
             android:paddingTop="4dp"
-            android:background="@color/purple"
-            android:textColor="@color/white" />
+            android:text="Dosage" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
