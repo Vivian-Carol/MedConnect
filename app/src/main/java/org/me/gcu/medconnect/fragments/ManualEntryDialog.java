@@ -1,6 +1,7 @@
 //package org.me.gcu.medconnect.fragments;
 //
 //import android.app.DatePickerDialog;
+//import android.content.Context;
 //import android.content.SharedPreferences;
 //import android.os.Bundle;
 //import android.util.Log;
@@ -28,6 +29,7 @@
 //
 //public class ManualEntryDialog extends DialogFragment {
 //
+//    private static final String TAG = "ManualEntryDialog";
 //    private EditText etStartDate, etEndDate, etRefillDate;
 //    private Calendar calendar;
 //    private String userId;
@@ -58,11 +60,12 @@
 //        instructionsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinnerInstructions.setAdapter(instructionsAdapter);
 //
-//        btnSave.setOnClickListener(v -> savePrescription(view, spinnerFrequency.getSelectedItem().toString(), spinnerInstructions.getSelectedItem().toString()));
-//
-//        // Retrieve user ID from shared preferences
-//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", getContext().MODE_PRIVATE);
+//        // Retrieve userId from shared preferences
+//        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
 //        userId = sharedPreferences.getString("userId", null);
+//        Log.d(TAG, "Retrieved userId: " + userId);
+//
+//        btnSave.setOnClickListener(v -> savePrescription(view, spinnerFrequency.getSelectedItem().toString(), spinnerInstructions.getSelectedItem().toString()));
 //
 //        return view;
 //    }
@@ -99,7 +102,7 @@
 //        // Create a new Prescription object
 //        Prescription prescription = new Prescription();
 //        prescription.setId(UUID.randomUUID().toString());
-//        prescription.setUserId(userId); // Set the user ID
+//        prescription.setUserId(userId);
 //        prescription.setMedicationName(medicationName);
 //        prescription.setDosage(dosage);
 //        prescription.setFrequency(frequency);
@@ -108,11 +111,17 @@
 //        prescription.setRefillDate(refillDate);
 //        prescription.setInstructions(instructions);
 //
+//        Log.d(TAG, "Saving prescription: " + prescription.toString());
+//
 //        // Save to DynamoDB
 //        new Thread(() -> {
-//            DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(AwsClientProvider.getDynamoDBClient());
-//            Log.d("Prescription", String.valueOf(prescription));
-//            dynamoDBMapper.save(prescription);
+//            try {
+//                DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(AwsClientProvider.getDynamoDBClient());
+//                dynamoDBMapper.save(prescription);
+//                Log.d(TAG, "Prescription saved successfully");
+//            } catch (Exception e) {
+//                Log.e(TAG, "Error saving prescription: " + e.getMessage(), e);
+//            }
 //        }).start();
 //
 //        dismiss();
@@ -183,7 +192,7 @@ public class ManualEntryDialog extends DialogFragment {
 
         // Retrieve userId from shared preferences
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-        userId = sharedPreferences.getString("userId", null);
+        userId = sharedPreferences.getString("USER_ID", null);
         Log.d(TAG, "Retrieved userId: " + userId);
 
         btnSave.setOnClickListener(v -> savePrescription(view, spinnerFrequency.getSelectedItem().toString(), spinnerInstructions.getSelectedItem().toString()));
