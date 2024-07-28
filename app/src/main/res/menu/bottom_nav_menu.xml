@@ -12,10 +12,6 @@
         android:icon="@drawable/ic_reminders"
         android:title="Reminders" />
     <item
-        android:id="@+id/nav_prescriptions"
-        android:icon="@drawable/ic_prescriptions"
-        android:title="Prescriptions" />
-    <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_search"
         android:title="Search" />

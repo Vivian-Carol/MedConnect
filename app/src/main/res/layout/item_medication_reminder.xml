@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:backgroundTint="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medication Name"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -45,6 +47,7 @@
                 android:id="@+id/dosage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:paddingTop="4dp"
                 android:text="Dosage" />
 
@@ -52,6 +55,7 @@
                 android:id="@+id/frequency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:paddingTop="4dp"
                 android:text="Frequency" />
 
@@ -59,6 +63,7 @@
                 android:id="@+id/timing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:paddingTop="4dp"
                 android:text="Timing" />
         </LinearLayout>

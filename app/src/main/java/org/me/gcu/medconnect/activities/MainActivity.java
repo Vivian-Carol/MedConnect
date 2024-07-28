@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_medications, R.id.nav_reminders, R.id.nav_prescriptions, R.id.nav_search)
+                R.id.nav_home, R.id.nav_medications, R.id.nav_reminders, R.id.nav_search)
                 .build();
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
