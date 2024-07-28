@@ -162,24 +162,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
-
 import org.me.gcu.medconnect.R;
 import org.me.gcu.medconnect.adapters.MedicationReminderSummaryAdapter;
 import org.me.gcu.medconnect.adapters.MedicationSummaryAdapter;
+import org.me.gcu.medconnect.controllers.HomeController;
 import org.me.gcu.medconnect.models.Prescription;
-import org.me.gcu.medconnect.network.AwsClientProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeController.HomeControllerListener {
 
     private TextView welcomeTextView;
     private RecyclerView reminderRecyclerView;
@@ -190,6 +185,7 @@ public class HomeFragment extends Fragment {
     private String username;
     private static final String TAG = "HomeFragment";
     private static final String PREFS_NAME = "user_prefs";
+    private HomeController controller;
 
     @Nullable
     @Override
@@ -204,7 +200,6 @@ public class HomeFragment extends Fragment {
         reminderRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         medicationRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Fetch user details from SharedPreferences
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         username = sharedPreferences.getString("USERNAME", null);
         userId = sharedPreferences.getString("USER_ID", null);
@@ -218,16 +213,14 @@ public class HomeFragment extends Fragment {
             Log.d(TAG, "Username is null");
         }
 
-        // Navigate to the MedicationRemindersFragment
         viewMoreReminders.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.nav_reminders));
-
-        // Navigate to the MedicationsFragment
         viewMoreMedications.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.nav_medications));
 
-        // Fetch actual data
+        controller = new HomeController();
+
         if (userId != null) {
-            fetchReminders();
-            fetchMedications();
+            controller.fetchReminders(userId, this);
+            controller.fetchMedications(userId, this);
         } else {
             displayEmptyView();
         }
@@ -235,62 +228,26 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void fetchReminders() {
-        new Thread(() -> {
-            DynamoDBMapper dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
-            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-            List<Prescription> allPrescriptions = dynamoDBMapper.scan(Prescription.class, scanExpression);
-
-            // Filter prescriptions for the logged-in user
-            List<Prescription> userReminders = new ArrayList<>();
-            for (Prescription prescription : allPrescriptions) {
-                if (prescription.getUserId().equals(userId)) {
-                    userReminders.add(prescription);
-                }
-            }
-
-            FragmentActivity activity = getActivity();
-            if (activity != null && isAdded()) {
-                activity.runOnUiThread(() -> {
-                    if (!userReminders.isEmpty()) {
-                        Log.d(TAG, "Reminders found: " + userReminders.size());
-                        reminderRecyclerView.setAdapter(new MedicationReminderSummaryAdapter(userReminders, getContext()));
-                    } else {
-                        Log.d(TAG, "No reminders found for userId: " + userId);
-                        displayEmptyView();
-                    }
-                });
-            }
-        }).start();
+    @Override
+    public void onRemindersFetched(List<Prescription> reminders) {
+        if (!reminders.isEmpty()) {
+            Log.d(TAG, "Reminders found: " + reminders.size());
+            reminderRecyclerView.setAdapter(new MedicationReminderSummaryAdapter(reminders, getContext()));
+        } else {
+            Log.d(TAG, "No reminders found for userId: " + userId);
+            displayEmptyView();
+        }
     }
 
-    private void fetchMedications() {
-        new Thread(() -> {
-            DynamoDBMapper dynamoDBMapper = AwsClientProvider.getDynamoDBMapper();
-            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-            List<Prescription> allPrescriptions = dynamoDBMapper.scan(Prescription.class, scanExpression);
-
-            // Filter prescriptions for the logged-in user
-            List<Prescription> userMedications = new ArrayList<>();
-            for (Prescription prescription : allPrescriptions) {
-                if (prescription.getUserId().equals(userId)) {
-                    userMedications.add(prescription);
-                }
-            }
-
-            FragmentActivity activity = getActivity();
-            if (activity != null && isAdded()) {
-                activity.runOnUiThread(() -> {
-                    if (!userMedications.isEmpty()) {
-                        Log.d(TAG, "Medications found: " + userMedications.size());
-                        medicationRecyclerView.setAdapter(new MedicationSummaryAdapter(userMedications, getContext()));
-                    } else {
-                        Log.d(TAG, "No medications found for userId: " + userId);
-                        displayEmptyView();
-                    }
-                });
-            }
-        }).start();
+    @Override
+    public void onMedicationsFetched(List<Prescription> medications) {
+        if (!medications.isEmpty()) {
+            Log.d(TAG, "Medications found: " + medications.size());
+            medicationRecyclerView.setAdapter(new MedicationSummaryAdapter(medications, getContext()));
+        } else {
+            Log.d(TAG, "No medications found for userId: " + userId);
+            displayEmptyView();
+        }
     }
 
     private void displayEmptyView() {

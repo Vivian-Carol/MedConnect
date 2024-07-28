@@ -1,38 +1,3 @@
-//package org.me.gcu.medconnect.utils;
-//
-//import org.me.gcu.medconnect.models.Medication;
-//import org.me.gcu.medconnect.models.Pharmacy;
-//
-//import java.util.Collections;
-//import java.util.Comparator;
-//import java.util.List;
-//
-//public class FilterUtils {
-//
-//    // Sort pharmacies by the lowest medication price for the given query
-//    public static List<Pharmacy> sortByPrice(List<Pharmacy> pharmacies, String query, boolean lowToHigh) {
-//        pharmacies.sort(Comparator.comparingDouble(pharmacy -> getLowestPrice(pharmacy.getMedications(), query)));
-//        if (!lowToHigh) {
-//            Collections.reverse(pharmacies);
-//        }
-//        return pharmacies;
-//    }
-//
-//    // Helper method to get the lowest price for the given query from the medications list
-//    private static double getLowestPrice(List<Medication> medications, String query) {
-//        return medications.stream()
-//                .filter(med -> med.getMedicationName().equalsIgnoreCase(query))
-//                .mapToDouble(med -> {
-//                    try {
-//                        return Double.parseDouble(med.getPrice().replaceAll("[^0-9.]", "")); // Extract price properly
-//                    } catch (NumberFormatException e) {
-//                        return Double.MAX_VALUE;
-//                    }
-//                })
-//                .min()
-//                .orElse(Double.MAX_VALUE);
-//    }
-//}
 package org.me.gcu.medconnect.utils;
 
 import android.util.Log;

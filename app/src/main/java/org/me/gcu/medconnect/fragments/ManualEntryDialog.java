@@ -62,7 +62,7 @@
 //
 //        // Retrieve userId from shared preferences
 //        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-//        userId = sharedPreferences.getString("userId", null);
+//        userId = sharedPreferences.getString("USER_ID", null);
 //        Log.d(TAG, "Retrieved userId: " + userId);
 //
 //        btnSave.setOnClickListener(v -> savePrescription(view, spinnerFrequency.getSelectedItem().toString(), spinnerInstructions.getSelectedItem().toString()));
@@ -128,6 +128,7 @@
 //    }
 //}
 
+// ManualEntryDialog.java
 package org.me.gcu.medconnect.fragments;
 
 import android.app.DatePickerDialog;
@@ -149,20 +150,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import org.me.gcu.medconnect.R;
+import org.me.gcu.medconnect.controllers.ManualEntryController;
 import org.me.gcu.medconnect.models.Prescription;
-import org.me.gcu.medconnect.network.AwsClientProvider;
 
 import java.util.Calendar;
 import java.util.UUID;
 
-public class ManualEntryDialog extends DialogFragment {
+public class ManualEntryDialog extends DialogFragment implements ManualEntryController.ManualEntryControllerListener {
 
     private static final String TAG = "ManualEntryDialog";
     private EditText etStartDate, etEndDate, etRefillDate;
     private Calendar calendar;
     private String userId;
+    private ManualEntryController controller;
 
     @Nullable
     @Override
@@ -177,6 +178,7 @@ public class ManualEntryDialog extends DialogFragment {
         Button btnSave = view.findViewById(R.id.btn_save);
 
         calendar = Calendar.getInstance();
+        controller = new ManualEntryController(this);
 
         etStartDate.setOnClickListener(v -> showDatePickerDialog(etStartDate));
         etEndDate.setOnClickListener(v -> showDatePickerDialog(etEndDate));
@@ -243,17 +245,17 @@ public class ManualEntryDialog extends DialogFragment {
 
         Log.d(TAG, "Saving prescription: " + prescription.toString());
 
-        // Save to DynamoDB
-        new Thread(() -> {
-            try {
-                DynamoDBMapper dynamoDBMapper = new DynamoDBMapper(AwsClientProvider.getDynamoDBClient());
-                dynamoDBMapper.save(prescription);
-                Log.d(TAG, "Prescription saved successfully");
-            } catch (Exception e) {
-                Log.e(TAG, "Error saving prescription: " + e.getMessage(), e);
-            }
-        }).start();
+        // Save to DynamoDB using the controller
+        controller.savePrescription(prescription);
+    }
 
+    @Override
+    public void onPrescriptionSaved(boolean success) {
+        if (success) {
+            Toast.makeText(getContext(), "Prescription saved successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Error saving prescription", Toast.LENGTH_SHORT).show();
+        }
         dismiss();
     }
 }

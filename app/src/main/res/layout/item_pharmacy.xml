@@ -9,14 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="226dp"
         android:padding="16dp">
 
         <!-- Image on the left side -->
         <ImageView
             android:id="@+id/pharmacy_image"
-            android:layout_width="142dp"
-            android:layout_height="165dp"
+            android:layout_width="163dp"
+            android:layout_height="189dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="16dp"
@@ -25,11 +25,12 @@
         <!-- Texts on the right side -->
         <LinearLayout
             android:id="@+id/text_container"
-            android:layout_width="221dp"
-            android:layout_height="170dp"
+            android:layout_width="220dp"
+            android:layout_height="194dp"
             android:layout_alignTop="@id/pharmacy_image"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="0dp"
+            android:layout_marginEnd="1dp"
             android:layout_toEndOf="@id/pharmacy_image"
             android:orientation="vertical">
 
