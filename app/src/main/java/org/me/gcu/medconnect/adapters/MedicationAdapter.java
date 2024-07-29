@@ -440,7 +440,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -573,6 +572,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Vi
 
         dialog.show();
     }
+
 
     private void confirmDeleteMedication(Prescription prescription, int position) {
         new AlertDialog.Builder(context)

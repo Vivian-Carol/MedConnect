@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@android:color/white">
+    android:padding="8dp">
 
     <EditText
         android:id="@+id/et_medication_name"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:textColor="@color/black"
         android:hint="@string/medication_name_hint"
         android:textSize="16sp" />
 
@@ -20,16 +18,14 @@
         android:layout_height="63dp"
         android:hint="@string/milligrams_hint"
         android:inputType="numberDecimal"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/et_dosage"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:hint="@string/dosage_hint"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/et_start_date"
@@ -38,8 +34,7 @@
         android:clickable="true"
         android:focusable="false"
         android:hint="@string/start_date_hint"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/et_end_date"
@@ -48,8 +43,7 @@
         android:clickable="true"
         android:focusable="false"
         android:hint="@string/end_date_hint"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/et_refill_date"
@@ -58,20 +52,17 @@
         android:clickable="true"
         android:focusable="false"
         android:hint="@string/refill_date_hint"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textSize="16sp" />
 
     <Spinner
         android:id="@+id/spinner_frequency"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:textColor="@color/black"/>
+        android:layout_height="51dp" />
 
     <Spinner
         android:id="@+id/spinner_instructions"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:textColor="@color/black"/>
+        android:layout_height="52dp" />
 
     <Button
         android:id="@+id/btn_save"

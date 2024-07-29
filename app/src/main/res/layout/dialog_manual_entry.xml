@@ -3,28 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
-    android:background="@android:color/white">
+    android:padding="8dp">
 
     <EditText
         android:id="@+id/et_medication_name"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:textColor="@color/black"
+        android:layout_height="74dp"
+        android:layout_marginBottom="8dp"
         android:hint="Medication Name" />
 
     <EditText
         android:id="@+id/et_dosage"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textColor="@color/black"
+        android:layout_height="68dp"
+        android:layout_marginBottom="8dp"
         android:hint="Dose-Form" />
 
     <EditText
         android:id="@+id/et_start_date"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textColor="@color/black"
+        android:layout_height="72dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="false"
         android:hint="Start Date (YYYY-MM-DD)" />
@@ -32,8 +31,8 @@
     <EditText
         android:id="@+id/et_end_date"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:textColor="@color/black"
+        android:layout_height="78dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="false"
         android:hint="End Date (YYYY-MM-DD)" />
@@ -41,8 +40,8 @@
     <EditText
         android:id="@+id/et_refill_date"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:textColor="@color/black"
+        android:layout_height="74dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="false"
         android:hint="Refill Date (YYYY-MM-DD)" />
@@ -50,22 +49,22 @@
     <Spinner
         android:id="@+id/spinner_frequency"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:textColor="@color/black"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
         android:entries="@array/frequency_array" />
 
     <Spinner
         android:id="@+id/spinner_instructions"
         android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:textColor="@color/black"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
         android:entries="@array/instructions_array" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
-        android:layout_height="63dp"
+        android:layout_height="64dp"
         android:backgroundTint="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:text="Save" />
+        android:text="Save"
+        android:textColor="@android:color/white" />
 </LinearLayout>

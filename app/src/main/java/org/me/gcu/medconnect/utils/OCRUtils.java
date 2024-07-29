@@ -2,32 +2,45 @@ package org.me.gcu.medconnect.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.SparseArray;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.text.TextBlock;
-import com.google.android.gms.vision.text.TextRecognizer;
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 public class OCRUtils {
 
-    public static String extractTextFromImage(Context context, Bitmap bitmap) {
-        TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-        if (!textRecognizer.isOperational()) {
-            Toast.makeText(context, "OCR not available", Toast.LENGTH_SHORT).show();
-            return null;
-        }
+    private static final String TAG = "OCRUtils";
 
-        Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-        SparseArray<TextBlock> items = textRecognizer.detect(frame);
+    public static void extractTextFromImage(Context context, Bitmap bitmap, final OCRResultListener listener) {
+        InputImage image = InputImage.fromBitmap(bitmap, 0);
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
-        StringBuilder textBuilder = new StringBuilder();
-        for (int i = 0; i < items.size(); ++i) {
-            TextBlock item = items.valueAt(i);
-            textBuilder.append(item.getValue());
-            textBuilder.append("\n");
-        }
+        Task<Text> result = recognizer.process(image)
+                .addOnSuccessListener(new OnSuccessListener<Text>() {
+                    @Override
+                    public void onSuccess(Text visionText) {
+                        listener.onResult(visionText.getText());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error recognizing text", e);
+                        listener.onError(e);
+                    }
+                });
+    }
 
-        return textBuilder.toString();
+    public interface OCRResultListener {
+        void onResult(String result);
+        void onError(Exception e);
     }
 }

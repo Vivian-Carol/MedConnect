@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_medicationsFragment"
             app:destination="@id/nav_medications" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/nav_search" />
     </fragment>
 
     <fragment
@@ -47,11 +50,22 @@
         android:id="@+id/nav_search"
         android:name="org.me.gcu.medconnect.fragments.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="org.me.gcu.medconnect.fragments.SearchResultsFragment"
+        android:label="Search Results"
+        tools:layout="@layout/fragment_search_results" />
 
     <fragment
         android:id="@+id/nav_manual_entry"
         android:name="org.me.gcu.medconnect.fragments.ManualEntryDialog"
         android:label="Manual Entry"
         tools:layout="@layout/dialog_manual_entry" />
+
 </navigation>

@@ -55,8 +55,10 @@
     <string name="start_date_label">Start Date:</string>
     <string name="end_date_label">End Date:</string>
     <string name="refill_date_label">Refill Date:</string>
+    <string name="frequency_label">Frequency Per Day:</string>
     <string name="instructions_label">Instructions:</string>
     <string name="add_prescription">Add Prescription</string>
+    <string name="go_back">Go Back To Search</string>
 
 
     <string-array name="regions_array">
@@ -68,7 +70,6 @@
     </string-array>
 
     <string-array name="sort_array">
-        <item>Sort by Price</item>
         <item>Low to High</item>
         <item>High to Low</item>
     </string-array>
