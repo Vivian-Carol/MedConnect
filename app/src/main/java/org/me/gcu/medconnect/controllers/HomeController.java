@@ -1,6 +1,5 @@
 package org.me.gcu.medconnect.controllers;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 

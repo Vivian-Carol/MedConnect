@@ -14,7 +14,7 @@ import org.me.gcu.medconnect.receivers.NotificationReceiver;
 public class NotificationUtils {
 
     public static void showCustomNotification(Context context, int notificationId, String medicationName, String dosage) {
-        // Create a RemoteViews object and inflate your custom layout
+
         RemoteViews notificationLayout = new RemoteViews(context.getPackageName(), R.layout.item_reminder);
 
         // Set the text for the views in the custom layout

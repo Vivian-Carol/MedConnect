@@ -14,8 +14,8 @@ public class TextExtractionUtils {
     public static String extractDosage(String text) {
         String[] lines = text.split("\n");
         for (String line : lines) {
-            if (line.matches("\\d+X\\d+")) {
-                return line.split("X")[0].trim();
+            if (line.matches("\\d+x\\d+")) {  // Checking for the format 2x3
+                return line.split("x")[0].trim();  // Returning the number before 'x'
             }
         }
         return "Dosage";
@@ -24,8 +24,8 @@ public class TextExtractionUtils {
     public static String extractFrequency(String text) {
         String[] lines = text.split("\n");
         for (String line : lines) {
-            if (line.matches("\\d+X\\d+")) {
-                return line.split("X")[1].trim();
+            if (line.matches("\\d+x\\d+")) {  // Checking for the format 2x3
+                return line.split("x")[1].trim();  // Returning the number after 'x'
             }
         }
         return "Frequency";
@@ -33,7 +33,14 @@ public class TextExtractionUtils {
 
     public static String extractInstructions(String text) {
         String[] lines = text.split("\n");
-        return lines.length > 3 ? lines[3].trim() : "Instructions";
+        for (String line : lines) {
+            if (line.toLowerCase().contains("before")) {
+                return "Before Meal";
+            } else if (line.toLowerCase().contains("after")) {
+                return "After Meal";
+            }
+        }
+        return "Instructions";
     }
 
     public static String extractStartDate(String text) {
