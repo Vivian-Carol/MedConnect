@@ -14,8 +14,8 @@ public class TextExtractionUtils {
     public static String extractDosage(String text) {
         String[] lines = text.split("\n");
         for (String line : lines) {
-            if (line.matches("\\d+x\\d+")) {  // Checking for the format 2x3
-                return line.split("x")[0].trim();  // Returning the number before 'x'
+            if (line.matches("\\d+x\\d+")) {
+                return line.split("x")[0].trim();
             }
         }
         return "Dosage";
@@ -24,8 +24,8 @@ public class TextExtractionUtils {
     public static String extractFrequency(String text) {
         String[] lines = text.split("\n");
         for (String line : lines) {
-            if (line.matches("\\d+x\\d+")) {  // Checking for the format 2x3
-                return line.split("x")[1].trim();  // Returning the number after 'x'
+            if (line.matches("\\d+x\\d+")) {
+                return line.split("x")[1].trim();
             }
         }
         return "Frequency";
